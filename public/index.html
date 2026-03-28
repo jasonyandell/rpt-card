@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>RPT Card</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --surface: #16213e;
+      --surface2: #0f3460;
+      --accent: #e94560;
+      --accent2: #533483;
+      --today: #1a4a2e;
+      --today-border: #2ecc71;
+      --text: #e0e0e0;
+      --text-dim: #888;
+      --cell-bg: #1e2a3a;
+      --cell-border: #2a3a4a;
+      --header-bg: #0d1b2a;
+      --input-bg: #0d1b2a;
+      --avg-bg: #12202e;
+      --row-hover: #1e2e40;
+      --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    #app-header {
+      background: var(--header-bg);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--accent);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #app-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+
+    #header-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #week-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      background: var(--surface2);
+      border: 1px solid var(--cell-border);
+      color: var(--text);
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      touch-action: manipulation;
+    }
+    .nav-btn:active { background: var(--accent2); }
+
+    #range-label {
+      font-size: 11px;
+      color: var(--text-dim);
+      white-space: nowrap;
+    }
+
+    #today-btn {
+      background: var(--today);
+      border: 1px solid var(--today-border);
+      color: var(--today-border);
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      touch-action: manipulation;
+    }
+
+    /* ── Save indicator ── */
+    #save-indicator {
+      font-size: 11px;
+      color: var(--text-dim);
+      min-width: 50px;
+      text-align: right;
+      transition: color 0.3s;
+    }
+    #save-indicator.saving { color: #f39c12; }
+    #save-indicator.saved  { color: var(--today-border); }
+    #save-indicator.error  { color: var(--accent); }
+
+    /* ── Grid wrapper ── */
+    #grid-wrapper {
+      overflow-x: auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 80px;
+    }
+
+    /* ── Table ── */
+    table {
+      border-collapse: collapse;
+      min-width: 100%;
+    }
+
+    th, td {
+      border: 1px solid var(--cell-border);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Activity label column */
+    td.activity-label {
+      text-align: left;
+      padding: 6px 10px;
+      background: var(--header-bg);
+      font-weight: 600;
+      font-size: 13px;
+      position: sticky;
+      left: 0;
+      z-index: 10;
+      min-width: 90px;
+      max-width: 90px;
+    }
+
+    th.activity-header {
+      background: var(--header-bg);
+      position: sticky;
+      left: 0;
+      z-index: 20;
+      min-width: 90px;
+      padding: 6px 10px;
+    }
+
+    /* Date header */
+    th.date-header {
+      background: var(--header-bg);
+      padding: 5px 4px;
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 52px;
+      color: var(--text-dim);
+    }
+
+    th.date-header .day-name {
+      display: block;
+      font-size: 10px;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    th.date-header.today-col {
+      background: var(--today);
+      color: var(--today-border);
+      border-bottom: 2px solid var(--today-border);
+    }
+
+    /* Data cells */
+    td.data-cell {
+      padding: 0;
+      min-width: 52px;
+      max-width: 52px;
+      background: var(--cell-bg);
+    }
+
+    td.data-cell.today-col {
+      background: var(--today);
+    }
+
+    tr:hover td.activity-label,
+    tr:hover td.data-cell {
+      background: var(--row-hover);
+    }
+    tr:hover td.data-cell.today-col {
+      background: #1e4a2e;
+    }
+
+    td.data-cell input {
+      width: 100%;
+      height: 34px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      text-align: center;
+      font-size: 13px;
+      font-family: var(--font);
+      padding: 0 2px;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    td.data-cell input::-webkit-outer-spin-button,
+    td.data-cell input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    td.data-cell input:focus {
+      background: var(--input-bg);
+      box-shadow: inset 0 0 0 2px var(--accent2);
+    }
+
+    /* Negative values */
+    td.data-cell input.negative { color: #e74c3c; }
+    td.data-cell input.positive { color: #2ecc71; }
+
+    /* Average row */
+    tr.avg-row td {
+      background: var(--avg-bg);
+      font-weight: 700;
+      font-size: 12px;
+    }
+    tr.avg-row td.activity-label {
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    tr.avg-row td.avg-cell {
+      padding: 6px 4px;
+      color: #f39c12;
+    }
+    tr.avg-row td.avg-cell.negative-avg { color: #e74c3c; }
+    tr.avg-row td.avg-cell.today-col { background: #1a3020; }
+
+    /* ── Loading / error state ── */
+    #status-bar {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    /* ── Scrollbar styling ── */
+    #grid-wrapper::-webkit-scrollbar { height: 6px; width: 6px; }
+    #grid-wrapper::-webkit-scrollbar-track { background: var(--bg); }
+    #grid-wrapper::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+
+    /* ── Mobile tweaks ── */
+    @media (max-width: 400px) {
+      #app-header h1 { font-size: 15px; }
+      td.activity-label, th.activity-header { min-width: 78px; max-width: 78px; font-size: 12px; }
+      th.date-header, td.data-cell { min-width: 44px; max-width: 44px; }
+      td.data-cell input { font-size: 12px; height: 30px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="app-header">
+  <h1>RPT CARD</h1>
+  <div id="header-right">
+    <div id="week-nav">
+      <button class="nav-btn" id="btn-prev">&#8249;</button>
+      <span id="range-label"></span>
+      <button class="nav-btn" id="btn-next">&#8250;</button>
+    </div>
+    <button id="today-btn">Today</button>
+    <span id="save-indicator"></span>
+  </div>
+</div>
+
+<div id="grid-wrapper">
+  <div id="status-bar">Loading…</div>
+  <table id="grid" style="display:none">
+    <thead id="grid-head"></thead>
+    <tbody id="grid-body"></tbody>
+    <tfoot id="grid-foot"></tfoot>
+  </table>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+//  Constants
+// ─────────────────────────────────────────────
+const ACTIVITIES = [
+  "Walking", "Triking", "Voice", "Torso", "RYTARY",
+  "Weight", "DBS", "Water", "Erin", "Dishes",
+  "Trash", "Mail", "Laundry", "Chores"
+];
+
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const VIEW_DAYS = 14; // show 2 weeks at a time
+
+// ─────────────────────────────────────────────
+//  State
+// ─────────────────────────────────────────────
+let anchorDate = todayStr();   // YYYY-MM-DD of the "end" date of current view
+let data = {};                  // { "YYYY-MM-DD": { activity: value } }
+let saveTimer = null;
+
+// ─────────────────────────────────────────────
+//  Date helpers
+// ─────────────────────────────────────────────
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function addDays(dateStr, n) {
+  const d = new Date(dateStr + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function formatShort(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return (d.getMonth() + 1) + "/" + d.getDate();
+}
+
+function dayName(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return DAYS[d.getDay()];
+}
+
+function dateRange() {
+  const to = anchorDate;
+  const from = addDays(to, -(VIEW_DAYS - 1));
+  return { from, to };
+}
+
+// ─────────────────────────────────────────────
+//  API
+// ─────────────────────────────────────────────
+async function fetchEntries(from, to) {
+  const res = await fetch(`/api/entries?from=${from}&to=${to}`);
+  if (!res.ok) throw new Error("fetch failed: " + res.status);
+  return res.json();
+}
+
+async function putEntry(activity, date, value) {
+  const res = await fetch("/api/entries", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ activity, date, value }),
+  });
+  if (!res.ok) throw new Error("save failed: " + res.status);
+  return res.json();
+}
+
+// ─────────────────────────────────────────────
+//  Save indicator
+// ─────────────────────────────────────────────
+function setSaveStatus(state, msg) {
+  const el = document.getElementById("save-indicator");
+  el.className = state;
+  el.textContent = msg;
+}
+
+// ─────────────────────────────────────────────
+//  Build grid
+// ─────────────────────────────────────────────
+function buildGrid(dates) {
+  const today = todayStr();
+  const head = document.getElementById("grid-head");
+  const body = document.getElementById("grid-body");
+  const foot = document.getElementById("grid-foot");
+
+  // ── Header row ──
+  let headHTML = "<tr><th class='activity-header'>Activity</th>";
+  for (const d of dates) {
+    const isToday = d === today;
+    headHTML += `<th class="date-header${isToday ? " today-col" : ""}" data-date="${d}">
+      <span class="day-name">${dayName(d)}</span>${formatShort(d)}
+    </th>`;
+  }
+  headHTML += "</tr>";
+  head.innerHTML = headHTML;
+
+  // ── Data rows ──
+  let bodyHTML = "";
+  for (const act of ACTIVITIES) {
+    bodyHTML += `<tr data-activity="${act}">`;
+    bodyHTML += `<td class="activity-label">${act}</td>`;
+    for (const d of dates) {
+      const isToday = d === today;
+      const val = (data[d] && data[d][act] !== undefined) ? data[d][act] : "";
+      const cls = val === "" ? "" : (parseFloat(val) < 0 ? " negative" : " positive");
+      bodyHTML += `<td class="data-cell${isToday ? " today-col" : ""}" data-activity="${act}" data-date="${d}">
+        <input type="text" inputmode="decimal" value="${val}" class="${cls.trim()}"
+          data-activity="${act}" data-date="${d}" autocomplete="off" />
+      </td>`;
+    }
+    bodyHTML += "</tr>";
+  }
+  body.innerHTML = bodyHTML;
+
+  // ── Average row ──
+  buildAvgRow(dates);
+
+  // ── Event listeners on inputs ──
+  body.querySelectorAll("input").forEach(inp => {
+    inp.addEventListener("focus", () => inp.select());
+    inp.addEventListener("input", onInput);
+    inp.addEventListener("blur", onBlur);
+    inp.addEventListener("keydown", onKeyDown);
+  });
+}
+
+function buildAvgRow(dates) {
+  const today = todayStr();
+  const foot = document.getElementById("grid-foot");
+  let html = "<tr class='avg-row'><td class='activity-label'>AVG</td>";
+  for (const d of dates) {
+    const isToday = d === today;
+    const avg = computeColAvg(d);
+    const display = avg === null ? "" : avg.toFixed(1);
+    const negCls = (avg !== null && avg < 0) ? " negative-avg" : "";
+    html += `<td class="avg-cell${isToday ? " today-col" : ""}${negCls}" data-date="${d}">${display}</td>`;
+  }
+  html += "</tr>";
+  foot.innerHTML = html;
+}
+
+function computeColAvg(dateStr) {
+  const dayData = data[dateStr];
+  if (!dayData) return null;
+  const vals = Object.values(dayData).filter(v => v !== null && v !== undefined && v !== "");
+  if (!vals.length) return null;
+  const sum = vals.reduce((a, b) => a + parseFloat(b), 0);
+  return sum / vals.length;
+}
+
+function refreshAvgCell(dateStr) {
+  const today = todayStr();
+  const cell = document.querySelector(`#grid-foot td[data-date="${dateStr}"]`);
+  if (!cell) return;
+  const avg = computeColAvg(dateStr);
+  cell.textContent = avg === null ? "" : avg.toFixed(1);
+  cell.className = "avg-cell" + (dateStr === today ? " today-col" : "") + (avg !== null && avg < 0 ? " negative-avg" : "");
+}
+
+// ─────────────────────────────────────────────
+//  Input handlers
+// ─────────────────────────────────────────────
+function onInput(e) {
+  const inp = e.target;
+  const raw = inp.value.trim();
+  const num = parseFloat(raw);
+  if (raw === "" || raw === "-") {
+    inp.className = "";
+  } else if (!isNaN(num)) {
+    inp.className = num < 0 ? "negative" : "positive";
+  }
+}
+
+function onBlur(e) {
+  const inp = e.target;
+  const activity = inp.dataset.activity;
+  const date = inp.dataset.date;
+  const raw = inp.value.trim();
+
+  // Normalise value
+  let value = null;
+  if (raw !== "" && raw !== "-") {
+    const num = parseFloat(raw);
+    if (!isNaN(num)) {
+      value = num;
+      inp.value = num;  // normalise display (removes trailing dots etc)
+    } else {
+      inp.value = "";   // invalid text → clear
+    }
+  } else if (raw === "") {
+    inp.value = "";
+  } else {
+    inp.value = "";  // lone "-" → clear
+  }
+
+  // Update local data
+  if (!data[date]) data[date] = {};
+  const old = data[date][activity];
+  if (value === null) {
+    delete data[date][activity];
+  } else {
+    data[date][activity] = value;
+  }
+
+  refreshAvgCell(date);
+
+  // Skip API call if value unchanged
+  if (old === value || (old === undefined && value === null)) return;
+
+  scheduleSave(activity, date, value);
+}
+
+function onKeyDown(e) {
+  const inp = e.target;
+  if (e.key === "Enter" || e.key === "Tab") {
+    e.preventDefault();
+    // Move to next cell in same column (next activity)
+    const row = inp.closest("tr");
+    const nextRow = row.nextElementSibling;
+    if (nextRow) {
+      const nextInp = nextRow.querySelector(`input[data-date="${inp.dataset.date}"]`);
+      if (nextInp) nextInp.focus();
+    }
+  }
+  if (e.key === "Escape") {
+    inp.blur();
+  }
+}
+
+// ─────────────────────────────────────────────
+//  Debounced save
+// ─────────────────────────────────────────────
+const pendingSaves = new Map(); // "activity|date" → value
+
+function scheduleSave(activity, date, value) {
+  const key = `${activity}|${date}`;
+  pendingSaves.set(key, { activity, date, value });
+
+  clearTimeout(saveTimer);
+  setSaveStatus("saving", "saving…");
+
+  saveTimer = setTimeout(flushSaves, 600);
+}
+
+async function flushSaves() {
+  const items = [...pendingSaves.entries()];
+  pendingSaves.clear();
+
+  try {
+    await Promise.all(items.map(([, item]) =>
+      putEntry(item.activity, item.date, item.value)
+    ));
+    setSaveStatus("saved", "saved ✓");
+    setTimeout(() => setSaveStatus("", ""), 2000);
+  } catch (err) {
+    setSaveStatus("error", "error ✗");
+    console.error("Save failed", err);
+  }
+}
+
+// ─────────────────────────────────────────────
+//  Load & render
+// ─────────────────────────────────────────────
+function getDates() {
+  const { from, to } = dateRange();
+  const dates = [];
+  let cur = from;
+  while (cur <= to) {
+    dates.push(cur);
+    cur = addDays(cur, 1);
+  }
+  return dates;
+}
+
+async function load() {
+  const statusBar = document.getElementById("status-bar");
+  const grid = document.getElementById("grid");
+  statusBar.style.display = "block";
+  statusBar.textContent = "Loading…";
+  grid.style.display = "none";
+
+  const { from, to } = dateRange();
+  updateRangeLabel(from, to);
+
+  try {
+    const rows = await fetchEntries(from, to);
+    data = {};
+    for (const row of rows) {
+      if (!data[row.date]) data[row.date] = {};
+      data[row.date][row.activity] = row.value;
+    }
+  } catch (err) {
+    statusBar.textContent = "Failed to load data. Is wrangler dev running?";
+    console.error(err);
+    return;
+  }
+
+  statusBar.style.display = "none";
+  grid.style.display = "";
+  buildGrid(getDates());
+  scrollToToday();
+}
+
+function updateRangeLabel(from, to) {
+  document.getElementById("range-label").textContent =
+    formatShort(from) + " – " + formatShort(to);
+}
+
+function scrollToToday() {
+  const today = todayStr();
+  const todayHeader = document.querySelector(`th[data-date="${today}"]`);
+  if (todayHeader) {
+    const wrapper = document.getElementById("grid-wrapper");
+    // Scroll so today is roughly in center
+    const offset = todayHeader.offsetLeft - wrapper.clientWidth / 2 + todayHeader.offsetWidth / 2;
+    wrapper.scrollLeft = Math.max(0, offset);
+  }
+}
+
+// ─────────────────────────────────────────────
+//  Navigation
+// ─────────────────────────────────────────────
+document.getElementById("btn-prev").addEventListener("click", () => {
+  anchorDate = addDays(anchorDate, -VIEW_DAYS);
+  load();
+});
+
+document.getElementById("btn-next").addEventListener("click", () => {
+  anchorDate = addDays(anchorDate, VIEW_DAYS);
+  load();
+});
+
+document.getElementById("today-btn").addEventListener("click", () => {
+  anchorDate = todayStr();
+  load();
+});
+
+// ─────────────────────────────────────────────
+//  Init
+// ─────────────────────────────────────────────
+load();
+</script>
+</body>
+</html>

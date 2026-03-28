@@ -1,0 +1,14 @@
+{
+  "name": "rpt-card",
+  "version": "1.0.0",
+  "description": "Daily habit/health tracker — Cloudflare Pages + D1",
+  "scripts": {
+    "dev": "wrangler pages dev public --d1=DB",
+    "deploy": "wrangler pages deploy public",
+    "db:migrate": "wrangler d1 execute rpt-card-db --file=schema.sql",
+    "db:migrate:remote": "wrangler d1 execute rpt-card-db --remote --file=schema.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
