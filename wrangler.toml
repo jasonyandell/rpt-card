@@ -5,4 +5,4 @@ pages_build_output_dir = "public"
 [[d1_databases]]
 binding = "DB"
 database_name = "rpt-card-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "90074b99-eb35-4ef4-8d34-81c291a3f98b"
