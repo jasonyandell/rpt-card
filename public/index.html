@@ -399,8 +399,8 @@ function buildGrid(dates) {
   }
   body.innerHTML = bodyHTML;
 
-  // ── Average row ──
-  buildAvgRow(dates);
+  // ── Totals row ──
+  buildTotalsRow(dates);
 
   // ── Event listeners on inputs ──
   body.querySelectorAll("input").forEach(inp => {
@@ -411,37 +411,39 @@ function buildGrid(dates) {
   });
 }
 
-function buildAvgRow(dates) {
+function buildTotalsRow(dates) {
   const today = todayStr();
   const foot = document.getElementById("grid-foot");
-  let html = "<tr class='avg-row'><td class='activity-label'>AVG</td>";
-  for (const d of dates) {
+
+  // Compute daily totals
+  const totals = dates.map(d => computeColTotal(d));
+  const nonNull = totals.filter(t => t !== null);
+  const avg = nonNull.length ? nonNull.reduce((a, b) => a + b, 0) / nonNull.length : null;
+  const avgDisplay = avg === null ? "AVG" : `AVG ${avg.toFixed(1)}`;
+
+  let html = `<tr class='avg-row'><td class='activity-label'>${avgDisplay}</td>`;
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i];
     const isToday = d === today;
-    const avg = computeColAvg(d);
-    const display = avg === null ? "" : avg.toFixed(1);
-    const negCls = (avg !== null && avg < 0) ? " negative-avg" : "";
+    const total = totals[i];
+    const display = total === null ? "" : (Number.isInteger(total) ? total : total.toFixed(1));
+    const negCls = (total !== null && total < 0) ? " negative-avg" : "";
     html += `<td class="avg-cell${isToday ? " today-col" : ""}${negCls}" data-date="${d}">${display}</td>`;
   }
   html += "</tr>";
   foot.innerHTML = html;
 }
 
-function computeColAvg(dateStr) {
+function computeColTotal(dateStr) {
   const dayData = data[dateStr];
   if (!dayData) return null;
   const vals = Object.values(dayData).filter(v => v !== null && v !== undefined && v !== "");
   if (!vals.length) return null;
-  const sum = vals.reduce((a, b) => a + parseFloat(b), 0);
-  return sum / vals.length;
+  return vals.reduce((a, b) => a + parseFloat(b), 0);
 }
 
-function refreshAvgCell(dateStr) {
-  const today = todayStr();
-  const cell = document.querySelector(`#grid-foot td[data-date="${dateStr}"]`);
-  if (!cell) return;
-  const avg = computeColAvg(dateStr);
-  cell.textContent = avg === null ? "" : avg.toFixed(1);
-  cell.className = "avg-cell" + (dateStr === today ? " today-col" : "") + (avg !== null && avg < 0 ? " negative-avg" : "");
+function refreshTotalsRow() {
+  buildTotalsRow(getDates());
 }
 
 // ─────────────────────────────────────────────
@@ -489,7 +491,7 @@ function onBlur(e) {
     data[date][activity] = value;
   }
 
-  refreshAvgCell(date);
+  refreshTotalsRow();
 
   // Skip API call if value unchanged
   if (old === value || (old === undefined && value === null)) return;
