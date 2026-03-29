@@ -9,12 +9,12 @@
       --bg: #1a1a2e;
       --surface: #16213e;
       --surface2: #0f3460;
-      --accent: #e94560;
-      --accent2: #533483;
+      --accent: #ff5a7e;
+      --accent2: #7c4dff;
       --today: #1a4a2e;
-      --today-border: #2ecc71;
-      --text: #e0e0e0;
-      --text-dim: #888;
+      --today-border: #4ade80;
+      --text: #ffffff;
+      --text-dim: #a0a0a0;
       --cell-bg: #1e2a3a;
       --cell-border: #2a3a4a;
       --header-bg: #0d1b2a;
@@ -120,12 +120,12 @@
 
     /* ── Table ── */
     table {
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 4px;
       min-width: 100%;
     }
 
     th, td {
-      border: 1px solid var(--cell-border);
       text-align: center;
       white-space: nowrap;
     }
@@ -133,15 +133,15 @@
     /* Activity label column */
     td.activity-label {
       text-align: left;
-      padding: 6px 10px;
+      padding: 8px 10px;
       background: var(--header-bg);
       font-weight: 600;
-      font-size: 13px;
+      font-size: 16px;
       position: sticky;
       left: 0;
       z-index: 10;
-      min-width: 90px;
-      max-width: 90px;
+      min-width: 94px;
+      max-width: 94px;
     }
 
     th.activity-header {
@@ -149,23 +149,24 @@
       position: sticky;
       left: 0;
       z-index: 20;
-      min-width: 90px;
+      min-width: 94px;
       padding: 6px 10px;
+      font-size: 16px;
     }
 
     /* Date header */
     th.date-header {
       background: var(--header-bg);
       padding: 5px 4px;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
-      min-width: 52px;
+      min-width: 56px;
       color: var(--text-dim);
     }
 
     th.date-header .day-name {
       display: block;
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-dim);
       font-weight: 400;
     }
@@ -179,13 +180,26 @@
     /* Data cells */
     td.data-cell {
       padding: 0;
-      min-width: 52px;
-      max-width: 52px;
+      min-width: 56px;
+      max-width: 56px;
+      height: 48px;
       background: var(--cell-bg);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      border-radius: 4px;
+      transition: background 0.1s;
+    }
+
+    td.data-cell:active {
+      background: var(--surface2);
     }
 
     td.data-cell.today-col {
       background: var(--today);
+    }
+    td.data-cell.today-col:active {
+      background: #1e5a2e;
     }
 
     tr:hover td.activity-label,
@@ -196,47 +210,203 @@
       background: #1e4a2e;
     }
 
-    td.data-cell input {
+    /* Cell value display */
+    .cell-value {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
-      height: 34px;
-      background: transparent;
-      border: none;
+      height: 48px;
+      font-size: 16px;
+      font-weight: 500;
       color: var(--text);
-      text-align: center;
-      font-size: 13px;
-      font-family: var(--font);
-      padding: 0 2px;
-      outline: none;
-      -moz-appearance: textfield;
+      touch-action: manipulation;
     }
-    td.data-cell input::-webkit-outer-spin-button,
-    td.data-cell input::-webkit-inner-spin-button { -webkit-appearance: none; }
-    td.data-cell input:focus {
-      background: var(--input-bg);
-      box-shadow: inset 0 0 0 2px var(--accent2);
-    }
-
-    /* Negative values */
-    td.data-cell input.negative { color: #e74c3c; }
-    td.data-cell input.positive { color: #2ecc71; }
+    .cell-value.negative { color: #ff6b6b; }
+    .cell-value.positive { color: #4ade80; }
 
     /* Average row */
     tr.avg-row td {
       background: var(--avg-bg);
       font-weight: 700;
-      font-size: 12px;
+      font-size: 14px;
     }
     tr.avg-row td.activity-label {
       color: var(--accent);
-      font-size: 12px;
+      font-size: 14px;
       letter-spacing: 1px;
     }
     tr.avg-row td.avg-cell {
-      padding: 6px 4px;
-      color: #f39c12;
+      padding: 8px 4px;
+      color: #fbbf24;
+      height: 48px;
     }
-    tr.avg-row td.avg-cell.negative-avg { color: #e74c3c; }
+    tr.avg-row td.avg-cell.negative-avg { color: #ff6b6b; }
     tr.avg-row td.avg-cell.today-col { background: #1a3020; }
+
+    /* ── Stepper Modal ── */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 500;
+      touch-action: none;
+    }
+    #modal-overlay.open { display: block; }
+
+    #stepper-modal {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      background: var(--header-bg);
+      border-top: 3px solid var(--accent);
+      border-radius: 16px 16px 0 0;
+      padding: 20px 16px 32px;
+      z-index: 501;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.25s ease-out;
+    }
+    #stepper-modal.open {
+      display: flex;
+      transform: translateY(0);
+    }
+
+    .modal-handle {
+      width: 40px;
+      height: 5px;
+      background: #555;
+      border-radius: 3px;
+      margin-bottom: 4px;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+    }
+    .modal-date {
+      font-size: 16px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .modal-current-value {
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--text);
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-current-value.empty {
+      color: var(--text-dim);
+      font-size: 24px;
+    }
+
+    .stepper-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .stepper-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid var(--accent2);
+      background: var(--surface2);
+      color: var(--text);
+      font-size: 36px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      transition: background 0.1s, transform 0.1s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .stepper-btn:active {
+      background: var(--accent2);
+      transform: scale(0.95);
+    }
+
+    .presets-label {
+      font-size: 13px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .presets-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .preset-btn {
+      min-width: 64px;
+      height: 52px;
+      border-radius: 10px;
+      border: 2px solid var(--accent2);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      padding: 0 16px;
+      transition: background 0.1s, transform 0.1s;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .preset-btn:active {
+      background: var(--accent2);
+      transform: scale(0.95);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .modal-action-btn {
+      flex: 1;
+      height: 52px;
+      border-radius: 10px;
+      border: none;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: opacity 0.1s;
+    }
+    .modal-action-btn:active { opacity: 0.7; }
+
+    .btn-clear {
+      background: #3a2020;
+      color: #ff6b6b;
+      border: 2px solid #ff6b6b;
+    }
+    .btn-done {
+      background: var(--today);
+      color: var(--today-border);
+      border: 2px solid var(--today-border);
+    }
 
     /* ── Loading / error state ── */
     #status-bar {
@@ -254,9 +424,9 @@
     /* ── Mobile tweaks ── */
     @media (max-width: 400px) {
       #app-header h1 { font-size: 15px; }
-      td.activity-label, th.activity-header { min-width: 78px; max-width: 78px; font-size: 12px; }
-      th.date-header, td.data-cell { min-width: 44px; max-width: 44px; }
-      td.data-cell input { font-size: 12px; height: 30px; }
+      td.activity-label, th.activity-header { min-width: 78px; max-width: 78px; font-size: 14px; }
+      th.date-header, td.data-cell { min-width: 48px; max-width: 48px; }
+      .cell-value { font-size: 14px; height: 48px; }
     }
   </style>
 </head>
@@ -284,6 +454,25 @@
   </table>
 </div>
 
+<!-- Stepper Modal -->
+<div id="modal-overlay"></div>
+<div id="stepper-modal">
+  <div class="modal-handle"></div>
+  <div class="modal-title" id="modal-activity"></div>
+  <div class="modal-date" id="modal-date"></div>
+  <div class="modal-current-value" id="modal-value"></div>
+  <div class="stepper-row">
+    <button class="stepper-btn" id="btn-minus">&minus;</button>
+    <button class="stepper-btn" id="btn-plus">+</button>
+  </div>
+  <div class="presets-label">Quick entry</div>
+  <div class="presets-row" id="modal-presets"></div>
+  <div class="modal-actions">
+    <button class="modal-action-btn btn-clear" id="btn-clear">Clear</button>
+    <button class="modal-action-btn btn-done" id="btn-done">Done</button>
+  </div>
+</div>
+
 <script>
 // ─────────────────────────────────────────────
 //  Constants
@@ -294,8 +483,26 @@ const ACTIVITIES = [
   "Trash", "Mail", "Laundry", "Chores"
 ];
 
+const ACTIVITY_PRESETS = {
+  Walking: [30, 40, 50, 60],
+  Triking: [30, 40, 50, 60],
+  Voice: [10, 15, 20, 30],
+  Torso: [10, 15, 20, 30],
+  RYTARY: [4, 5, 6, 9],
+  Weight: [-5, -3, -2, -1],
+  DBS: [3, 4, 5, 6],
+  Water: [2, 3, 4, 6],
+  Erin: [1, 3, 6, 9],
+  Dishes: [1, 2, 3, 4],
+  Trash: [1, 2, 3, 4],
+  Mail: [1, 2, 3, 4],
+  Laundry: [1, 2, 3, 4],
+  Chores: [1, 2, 3, 4],
+};
+
 const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const VIEW_DAYS = 14; // show 2 weeks at a time
+const DEBOUNCE_MS = 300;
 
 // ─────────────────────────────────────────────
 //  State
@@ -303,6 +510,23 @@ const VIEW_DAYS = 14; // show 2 weeks at a time
 let anchorDate = todayStr();   // YYYY-MM-DD of the "end" date of current view
 let data = {};                  // { "YYYY-MM-DD": { activity: value } }
 let saveTimer = null;
+
+// Modal state
+let modalActivity = null;
+let modalDate = null;
+let modalValue = null;
+
+// Touch debounce
+let lastTapTime = 0;
+
+function debounced(fn) {
+  return function(e) {
+    const now = Date.now();
+    if (now - lastTapTime < DEBOUNCE_MS) return;
+    lastTapTime = now;
+    fn.call(this, e);
+  };
+}
 
 // ─────────────────────────────────────────────
 //  Date helpers
@@ -320,6 +544,12 @@ function addDays(dateStr, n) {
 function formatShort(dateStr) {
   const d = new Date(dateStr + "T00:00:00");
   return (d.getMonth() + 1) + "/" + d.getDate();
+}
+
+function formatFull(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return DAYS[d.getDay()] + ", " + months[d.getMonth()] + " " + d.getDate();
 }
 
 function dayName(dateStr) {
@@ -368,7 +598,6 @@ function buildGrid(dates) {
   const today = todayStr();
   const head = document.getElementById("grid-head");
   const body = document.getElementById("grid-body");
-  const foot = document.getElementById("grid-foot");
 
   // ── Header row ──
   let headHTML = "<tr><th class='activity-header'>Activity</th>";
@@ -391,8 +620,7 @@ function buildGrid(dates) {
       const val = (data[d] && data[d][act] !== undefined) ? data[d][act] : "";
       const cls = val === "" ? "" : (parseFloat(val) < 0 ? " negative" : " positive");
       bodyHTML += `<td class="data-cell${isToday ? " today-col" : ""}" data-activity="${act}" data-date="${d}">
-        <input type="text" inputmode="decimal" value="${val}" class="${cls.trim()}"
-          data-activity="${act}" data-date="${d}" autocomplete="off" />
+        <div class="cell-value${cls}" data-activity="${act}" data-date="${d}">${val !== "" ? val : ""}</div>
       </td>`;
     }
     bodyHTML += "</tr>";
@@ -402,12 +630,9 @@ function buildGrid(dates) {
   // ── Totals row ──
   buildTotalsRow(dates);
 
-  // ── Event listeners on inputs ──
-  body.querySelectorAll("input").forEach(inp => {
-    inp.addEventListener("focus", () => inp.select());
-    inp.addEventListener("input", onInput);
-    inp.addEventListener("blur", onBlur);
-    inp.addEventListener("keydown", onKeyDown);
+  // ── Tap listeners on cells ──
+  body.querySelectorAll("td.data-cell").forEach(cell => {
+    cell.addEventListener("click", debounced(onCellTap));
   });
 }
 
@@ -415,7 +640,6 @@ function buildTotalsRow(dates) {
   const today = todayStr();
   const foot = document.getElementById("grid-foot");
 
-  // Compute daily totals
   const totals = dates.map(d => computeColTotal(d));
   const nonNull = totals.filter(t => t !== null);
   const avg = nonNull.length ? nonNull.reduce((a, b) => a + b, 0) / nonNull.length : null;
@@ -446,75 +670,145 @@ function refreshTotalsRow() {
   buildTotalsRow(getDates());
 }
 
-// ─────────────────────────────────────────────
-//  Input handlers
-// ─────────────────────────────────────────────
-function onInput(e) {
-  const inp = e.target;
-  const raw = inp.value.trim();
-  const num = parseFloat(raw);
-  if (raw === "" || raw === "-") {
-    inp.className = "";
-  } else if (!isNaN(num)) {
-    inp.className = num < 0 ? "negative" : "positive";
+// Update a single cell's display without rebuilding the whole grid
+function updateCellDisplay(activity, date, value) {
+  const cell = document.querySelector(`td.data-cell[data-activity="${activity}"][data-date="${date}"] .cell-value`);
+  if (!cell) return;
+  cell.textContent = (value !== null && value !== undefined && value !== "") ? value : "";
+  cell.className = "cell-value";
+  if (value !== null && value !== undefined && value !== "") {
+    cell.classList.add(parseFloat(value) < 0 ? "negative" : "positive");
   }
 }
 
-function onBlur(e) {
-  const inp = e.target;
-  const activity = inp.dataset.activity;
-  const date = inp.dataset.date;
-  const raw = inp.value.trim();
+// ─────────────────────────────────────────────
+//  Cell tap → open modal
+// ─────────────────────────────────────────────
+function onCellTap(e) {
+  const cell = e.currentTarget;
+  const activity = cell.dataset.activity;
+  const date = cell.dataset.date;
+  openModal(activity, date);
+}
 
-  // Normalise value
-  let value = null;
-  if (raw !== "" && raw !== "-") {
-    const num = parseFloat(raw);
-    if (!isNaN(num)) {
-      value = num;
-      inp.value = num;  // normalise display (removes trailing dots etc)
-    } else {
-      inp.value = "";   // invalid text → clear
-    }
-  } else if (raw === "") {
-    inp.value = "";
-  } else {
-    inp.value = "";  // lone "-" → clear
+// ─────────────────────────────────────────────
+//  Stepper Modal
+// ─────────────────────────────────────────────
+function openModal(activity, date) {
+  modalActivity = activity;
+  modalDate = date;
+  modalValue = (data[date] && data[date][activity] !== undefined) ? data[date][activity] : null;
+
+  document.getElementById("modal-activity").textContent = activity;
+  document.getElementById("modal-date").textContent = formatFull(date);
+  updateModalValue();
+
+  // Build presets
+  const presets = ACTIVITY_PRESETS[activity] || [1, 2, 3, 5];
+  const presetsContainer = document.getElementById("modal-presets");
+  presetsContainer.innerHTML = "";
+  for (const p of presets) {
+    const btn = document.createElement("button");
+    btn.className = "preset-btn";
+    btn.textContent = p;
+    btn.addEventListener("click", debounced(() => {
+      modalValue = p;
+      updateModalValue();
+    }));
+    presetsContainer.appendChild(btn);
   }
 
-  // Update local data
+  document.getElementById("modal-overlay").classList.add("open");
+  // Force reflow before adding open class for transition
+  const modal = document.getElementById("stepper-modal");
+  modal.style.display = "flex";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      modal.classList.add("open");
+    });
+  });
+}
+
+function updateModalValue() {
+  const el = document.getElementById("modal-value");
+  if (modalValue === null || modalValue === undefined) {
+    el.textContent = "—";
+    el.className = "modal-current-value empty";
+  } else {
+    el.textContent = modalValue;
+    el.className = "modal-current-value";
+  }
+}
+
+function closeModal() {
+  // Save the value
+  const activity = modalActivity;
+  const date = modalDate;
+  const value = modalValue;
+
   if (!data[date]) data[date] = {};
   const old = data[date][activity];
+
   if (value === null) {
     delete data[date][activity];
   } else {
     data[date][activity] = value;
   }
 
+  updateCellDisplay(activity, date, value);
   refreshTotalsRow();
 
-  // Skip API call if value unchanged
-  if (old === value || (old === undefined && value === null)) return;
+  if (old !== value && !(old === undefined && value === null)) {
+    scheduleSave(activity, date, value);
+  }
 
-  scheduleSave(activity, date, value);
+  // Close
+  document.getElementById("modal-overlay").classList.remove("open");
+  const modal = document.getElementById("stepper-modal");
+  modal.classList.remove("open");
+  setTimeout(() => { modal.style.display = "none"; }, 250);
+
+  modalActivity = null;
+  modalDate = null;
+  modalValue = null;
 }
 
-function onKeyDown(e) {
-  const inp = e.target;
-  if (e.key === "Enter" || e.key === "Tab") {
-    e.preventDefault();
-    // Move to next cell in same column (next activity)
-    const row = inp.closest("tr");
-    const nextRow = row.nextElementSibling;
-    if (nextRow) {
-      const nextInp = nextRow.querySelector(`input[data-date="${inp.dataset.date}"]`);
-      if (nextInp) nextInp.focus();
-    }
-  }
-  if (e.key === "Escape") {
-    inp.blur();
-  }
-}
+// Modal button listeners
+document.getElementById("btn-minus").addEventListener("click", debounced(() => {
+  if (modalValue === null) modalValue = 0;
+  modalValue = Math.round((modalValue - 1) * 100) / 100;
+  updateModalValue();
+}));
+
+document.getElementById("btn-plus").addEventListener("click", debounced(() => {
+  if (modalValue === null) modalValue = 0;
+  modalValue = Math.round((modalValue + 1) * 100) / 100;
+  updateModalValue();
+}));
+
+document.getElementById("btn-clear").addEventListener("click", debounced(() => {
+  modalValue = null;
+  updateModalValue();
+}));
+
+document.getElementById("btn-done").addEventListener("click", debounced(() => {
+  closeModal();
+}));
+
+// Tap overlay to dismiss
+document.getElementById("modal-overlay").addEventListener("click", debounced(() => {
+  closeModal();
+}));
+
+// Swipe down to dismiss
+let touchStartY = 0;
+document.getElementById("stepper-modal").addEventListener("touchstart", (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.getElementById("stepper-modal").addEventListener("touchend", (e) => {
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (dy > 80) closeModal();
+}, { passive: true });
 
 // ─────────────────────────────────────────────
 //  Debounced save
@@ -600,29 +894,28 @@ function scrollToToday() {
   const todayHeader = document.querySelector(`th[data-date="${today}"]`);
   if (todayHeader) {
     const wrapper = document.getElementById("grid-wrapper");
-    // Scroll so today is roughly in center
     const offset = todayHeader.offsetLeft - wrapper.clientWidth / 2 + todayHeader.offsetWidth / 2;
     wrapper.scrollLeft = Math.max(0, offset);
   }
 }
 
 // ─────────────────────────────────────────────
-//  Navigation
+//  Navigation (with debounce)
 // ─────────────────────────────────────────────
-document.getElementById("btn-prev").addEventListener("click", () => {
+document.getElementById("btn-prev").addEventListener("click", debounced(() => {
   anchorDate = addDays(anchorDate, -VIEW_DAYS);
   load();
-});
+}));
 
-document.getElementById("btn-next").addEventListener("click", () => {
+document.getElementById("btn-next").addEventListener("click", debounced(() => {
   anchorDate = addDays(anchorDate, VIEW_DAYS);
   load();
-});
+}));
 
-document.getElementById("today-btn").addEventListener("click", () => {
+document.getElementById("today-btn").addEventListener("click", debounced(() => {
   anchorDate = todayStr();
   load();
-});
+}));
 
 // ─────────────────────────────────────────────
 //  Init
