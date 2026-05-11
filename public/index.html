@@ -514,6 +514,7 @@ const DEBOUNCE_MS = 300;
 // ─────────────────────────────────────────────
 let anchorDate = todayStr();   // YYYY-MM-DD of the "end" date of current view
 let data = {};                  // { "YYYY-MM-DD": { activity: value } }
+let stats = { avg: null, days: 0 }; // all-time avg of daily totals; empty days excluded
 let saveTimer = null;
 
 // Modal state
@@ -575,6 +576,16 @@ async function fetchEntries(from, to) {
   const res = await fetch(`/api/entries?from=${from}&to=${to}`);
   if (!res.ok) throw new Error("fetch failed: " + res.status);
   return res.json();
+}
+
+async function fetchStats() {
+  try {
+    const res = await fetch("/api/stats");
+    if (!res.ok) return;
+    stats = await res.json();
+  } catch (err) {
+    console.error("stats fetch failed", err);
+  }
 }
 
 async function putEntry(activity, date, value) {
@@ -646,8 +657,7 @@ function buildTotalsRow(dates) {
   const foot = document.getElementById("grid-foot");
 
   const totals = dates.map(d => computeColTotal(d));
-  const nonNull = totals.filter(t => t !== null);
-  const avg = nonNull.length ? nonNull.reduce((a, b) => a + b, 0) / nonNull.length : null;
+  const avg = stats.avg;
   const avgDisplay = avg === null ? "AVG" : `AVG ${avg.toFixed(1)}`;
 
   let html = `<tr class='avg-row'><td class='activity-label'>${avgDisplay}</td>`;
@@ -840,6 +850,8 @@ async function flushSaves() {
     ));
     setSaveStatus("saved", "saved ✓");
     setTimeout(() => setSaveStatus("", ""), 2000);
+    await fetchStats();
+    refreshTotalsRow();
   } catch (err) {
     setSaveStatus("error", "error ✗");
     console.error("Save failed", err);
@@ -871,7 +883,10 @@ async function load() {
   updateRangeLabel(from, to);
 
   try {
-    const rows = await fetchEntries(from, to);
+    const [rows] = await Promise.all([
+      fetchEntries(from, to),
+      fetchStats(),
+    ]);
     data = {};
     for (const row of rows) {
       if (!data[row.date]) data[row.date] = {};
