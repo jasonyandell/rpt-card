@@ -1,0 +1,54 @@
+name: backup-d1
+
+on:
+  schedule:
+    # Daily at 09:00 UTC (~02:00 PT). Cron is best-effort on free runners.
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Export D1 database
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          mkdir -p backups
+          npx --yes wrangler@4 d1 export rpt-card-db \
+            --remote \
+            --output=backups/rpt-card-db.sql
+          # Sanity: file must contain at least one INSERT or CREATE statement
+          if ! grep -qE '^(CREATE TABLE|INSERT INTO)' backups/rpt-card-db.sql; then
+            echo "Export looks empty or malformed; aborting commit." >&2
+            head -20 backups/rpt-card-db.sql >&2 || true
+            exit 1
+          fi
+          echo "rows=$(grep -c '^INSERT' backups/rpt-card-db.sql || true)"
+          echo "bytes=$(wc -c < backups/rpt-card-db.sql)"
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backups/rpt-card-db.sql
+          if git diff --cached --quiet; then
+            echo "No changes; skipping commit."
+            exit 0
+          fi
+          git commit -m "backup: D1 snapshot $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push

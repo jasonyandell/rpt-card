@@ -3,3 +3,8 @@ node_modules/
 dist/
 .env
 *.local
+
+# Only the canonical, workflow-managed backup is tracked.
+# Local ad-hoc dumps stay local.
+backups/*
+!backups/rpt-card-db.sql
