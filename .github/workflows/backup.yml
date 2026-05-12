@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+# Restore path: re-apply schema.sql to an empty DB, then replay entries.
+# from JSON. A scratch restore script is not committed; see README if added.
+
 jobs:
   export:
     runs-on: ubuntu-latest
@@ -18,36 +21,40 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Export D1 database
+      - name: Export D1 entries as JSON
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DB_UUID: 90074b99-eb35-4ef4-8d34-81c291a3f98b
         run: |
           mkdir -p backups
-          npx --yes wrangler@4 d1 export rpt-card-db \
-            --remote \
-            --output=backups/rpt-card-db.sql
-          # Sanity: file must contain at least one INSERT or CREATE statement
-          if ! grep -qE '^(CREATE TABLE|INSERT INTO)' backups/rpt-card-db.sql; then
-            echo "Export looks empty or malformed; aborting commit." >&2
-            head -20 backups/rpt-card-db.sql >&2 || true
+          response=$(mktemp)
+          http=$(curl -sS -o "$response" -w '%{http_code}' \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"sql": "SELECT id, activity, date, value, updated_at FROM entries ORDER BY date, activity, id"}' \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/d1/database/${DB_UUID}/query")
+          if [ "$http" != "200" ] || ! jq -e '.success == true' "$response" >/dev/null; then
+            echo "API call failed (HTTP $http):" >&2
+            jq . "$response" >&2 || cat "$response" >&2
             exit 1
           fi
-          echo "rows=$(grep -c '^INSERT' backups/rpt-card-db.sql || true)"
-          echo "bytes=$(wc -c < backups/rpt-card-db.sql)"
+          # Canonical, sorted JSON so byte-equality across runs is meaningful
+          jq --sort-keys '.result[0].results' "$response" > backups/rpt-card-db.json
+          rows=$(jq 'length' backups/rpt-card-db.json)
+          if [ "$rows" = "0" ] || [ "$rows" = "null" ]; then
+            echo "Export returned no rows; aborting commit." >&2
+            exit 1
+          fi
+          echo "rows=$rows  bytes=$(wc -c < backups/rpt-card-db.json)"
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add backups/rpt-card-db.sql
+          git add backups/rpt-card-db.json
           if git diff --cached --quiet; then
-            echo "No changes; skipping commit."
+            echo "No changes since last snapshot; skipping commit."
             exit 0
           fi
           git commit -m "backup: D1 snapshot $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
