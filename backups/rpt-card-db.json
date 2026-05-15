@@ -3820,5 +3820,54 @@
     "id": 627,
     "updated_at": "2026-05-14 03:24:28",
     "value": -2
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-14",
+    "id": 636,
+    "updated_at": "2026-05-15 02:50:40",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-05-14",
+    "id": 639,
+    "updated_at": "2026-05-15 02:51:19",
+    "value": 1
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-14",
+    "id": 638,
+    "updated_at": "2026-05-15 02:51:09",
+    "value": 2
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-14",
+    "id": 635,
+    "updated_at": "2026-05-15 02:50:33",
+    "value": 9
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-05-14",
+    "id": 633,
+    "updated_at": "2026-05-15 02:50:14",
+    "value": 50
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-14",
+    "id": 634,
+    "updated_at": "2026-05-15 02:50:26",
+    "value": 15
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-14",
+    "id": 637,
+    "updated_at": "2026-05-15 02:50:56",
+    "value": 1
   }
 ]
