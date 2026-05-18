@@ -3869,5 +3869,145 @@
     "id": 637,
     "updated_at": "2026-05-15 02:50:56",
     "value": 1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-15",
+    "id": 643,
+    "updated_at": "2026-05-18 03:14:59",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-05-15",
+    "id": 646,
+    "updated_at": "2026-05-18 03:15:21",
+    "value": 3
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-15",
+    "id": 645,
+    "updated_at": "2026-05-18 03:15:13",
+    "value": 6
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-15",
+    "id": 642,
+    "updated_at": "2026-05-18 03:14:53",
+    "value": 9
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-05-15",
+    "id": 647,
+    "updated_at": "2026-05-18 03:15:28",
+    "value": 1
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-15",
+    "id": 641,
+    "updated_at": "2026-05-18 03:14:45",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-15",
+    "id": 640,
+    "updated_at": "2026-05-18 03:14:39",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-15",
+    "id": 644,
+    "updated_at": "2026-05-18 03:15:07",
+    "value": 2
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-16",
+    "id": 651,
+    "updated_at": "2026-05-18 03:16:46",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-16",
+    "id": 649,
+    "updated_at": "2026-05-18 03:16:17",
+    "value": 6
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-05-16",
+    "id": 652,
+    "updated_at": "2026-05-18 03:17:01",
+    "value": 1
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-05-16",
+    "id": 648,
+    "updated_at": "2026-05-18 03:16:07",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-16",
+    "id": 650,
+    "updated_at": "2026-05-18 03:16:38",
+    "value": 1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-17",
+    "id": 656,
+    "updated_at": "2026-05-18 03:17:48",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-05-17",
+    "id": 659,
+    "updated_at": "2026-05-18 03:18:06",
+    "value": 3
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-17",
+    "id": 658,
+    "updated_at": "2026-05-18 03:18:01",
+    "value": 2
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-17",
+    "id": 655,
+    "updated_at": "2026-05-18 03:17:38",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-17",
+    "id": 654,
+    "updated_at": "2026-05-18 03:17:32",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-17",
+    "id": 653,
+    "updated_at": "2026-05-18 03:17:23",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-17",
+    "id": 657,
+    "updated_at": "2026-05-18 03:17:53",
+    "value": 1
   }
 ]
