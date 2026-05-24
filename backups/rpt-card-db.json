@@ -4223,8 +4223,8 @@
   {
     "activity": "Mail",
     "date": "2026-05-21",
-    "id": 692,
-    "updated_at": "2026-05-21 23:24:18",
+    "id": 708,
+    "updated_at": "2026-05-24 02:06:57",
     "value": 1
   },
   {
@@ -4260,6 +4260,118 @@
     "date": "2026-05-21",
     "id": 694,
     "updated_at": "2026-05-21 23:25:09",
+    "value": -2
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-05-22",
+    "id": 711,
+    "updated_at": "2026-05-24 02:07:26",
+    "value": 20
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-22",
+    "id": 704,
+    "updated_at": "2026-05-24 02:05:53",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-22",
+    "id": 706,
+    "updated_at": "2026-05-24 02:06:04",
+    "value": 6
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-05-22",
+    "id": 719,
+    "updated_at": "2026-05-24 02:59:13",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-22",
+    "id": 702,
+    "updated_at": "2026-05-24 02:05:43",
+    "value": 9
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-22",
+    "id": 701,
+    "updated_at": "2026-05-24 02:05:32",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-22",
+    "id": 700,
+    "updated_at": "2026-05-24 02:05:29",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-22",
+    "id": 705,
+    "updated_at": "2026-05-24 02:06:00",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-22",
+    "id": 703,
+    "updated_at": "2026-05-24 02:05:49",
+    "value": -2
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-05-23",
+    "id": 712,
+    "updated_at": "2026-05-24 02:08:05",
+    "value": 20
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-23",
+    "id": 717,
+    "updated_at": "2026-05-24 02:58:31",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-23",
+    "id": 713,
+    "updated_at": "2026-05-24 02:08:17",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-23",
+    "id": 715,
+    "updated_at": "2026-05-24 02:08:41",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-23",
+    "id": 718,
+    "updated_at": "2026-05-24 02:58:42",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-23",
+    "id": 716,
+    "updated_at": "2026-05-24 02:09:02",
+    "value": 50
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-23",
+    "id": 714,
+    "updated_at": "2026-05-24 02:08:28",
     "value": -2
   }
 ]
