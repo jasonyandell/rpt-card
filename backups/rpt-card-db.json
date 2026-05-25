@@ -4373,5 +4373,47 @@
     "id": 714,
     "updated_at": "2026-05-24 02:08:28",
     "value": -2
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-05-24",
+    "id": 725,
+    "updated_at": "2026-05-25 02:58:38",
+    "value": 20
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-24",
+    "id": 724,
+    "updated_at": "2026-05-25 02:58:09",
+    "value": 5
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-24",
+    "id": 722,
+    "updated_at": "2026-05-25 02:58:01",
+    "value": 9
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-24",
+    "id": 720,
+    "updated_at": "2026-05-25 02:57:36",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-24",
+    "id": 721,
+    "updated_at": "2026-05-25 02:57:54",
+    "value": 5
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-24",
+    "id": 723,
+    "updated_at": "2026-05-25 02:58:05",
+    "value": -3
   }
 ]
