@@ -4562,5 +4562,61 @@
     "id": 740,
     "updated_at": "2026-05-28 08:29:28",
     "value": -2
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-28",
+    "id": 752,
+    "updated_at": "2026-05-29 04:07:26",
+    "value": 10
+  },
+  {
+    "activity": "Laundry",
+    "date": "2026-05-28",
+    "id": 754,
+    "updated_at": "2026-05-29 04:08:04",
+    "value": 1
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-05-28",
+    "id": 753,
+    "updated_at": "2026-05-29 04:07:55",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-28",
+    "id": 749,
+    "updated_at": "2026-05-29 04:06:57",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-28",
+    "id": 748,
+    "updated_at": "2026-05-29 04:06:53",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-28",
+    "id": 747,
+    "updated_at": "2026-05-29 04:06:47",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-28",
+    "id": 751,
+    "updated_at": "2026-05-29 04:07:16",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-28",
+    "id": 750,
+    "updated_at": "2026-05-29 04:07:05",
+    "value": -1
   }
 ]
