@@ -4618,5 +4618,75 @@
     "id": 750,
     "updated_at": "2026-05-29 04:07:05",
     "value": -1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-29",
+    "id": 759,
+    "updated_at": "2026-05-30 03:33:02",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-05-29",
+    "id": 762,
+    "updated_at": "2026-05-30 03:33:25",
+    "value": 3
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-29",
+    "id": 761,
+    "updated_at": "2026-05-30 03:33:19",
+    "value": 5
+  },
+  {
+    "activity": "Laundry",
+    "date": "2026-05-29",
+    "id": 764,
+    "updated_at": "2026-05-30 03:33:38",
+    "value": 3
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-29",
+    "id": 757,
+    "updated_at": "2026-05-30 03:32:50",
+    "value": 6
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-05-29",
+    "id": 763,
+    "updated_at": "2026-05-30 03:33:30",
+    "value": 1
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-29",
+    "id": 756,
+    "updated_at": "2026-05-30 03:32:34",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-05-29",
+    "id": 755,
+    "updated_at": "2026-05-30 03:32:27",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-29",
+    "id": 760,
+    "updated_at": "2026-05-30 03:33:07",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-29",
+    "id": 758,
+    "updated_at": "2026-05-30 03:32:54",
+    "value": -2
   }
 ]
