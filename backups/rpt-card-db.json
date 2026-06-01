@@ -1246,13 +1246,6 @@
     "value": 5
   },
   {
-    "activity": "Dishes",
-    "date": "2026-03-26",
-    "id": 18,
-    "updated_at": "2026-03-29 15:49:40",
-    "value": 1
-  },
-  {
     "activity": "Erin",
     "date": "2026-03-26",
     "id": 17,
@@ -4688,5 +4681,68 @@
     "id": 758,
     "updated_at": "2026-05-30 03:32:54",
     "value": -2
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-05-30",
+    "id": 767,
+    "updated_at": "2026-05-31 17:15:44",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-05-30",
+    "id": 772,
+    "updated_at": "2026-05-31 17:16:45",
+    "value": 3
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-05-30",
+    "id": 771,
+    "updated_at": "2026-05-31 17:16:41",
+    "value": 1
+  },
+  {
+    "activity": "Laundry",
+    "date": "2026-05-30",
+    "id": 773,
+    "updated_at": "2026-05-31 17:17:05",
+    "value": 6
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-05-30",
+    "id": 769,
+    "updated_at": "2026-05-31 17:16:15",
+    "value": 9
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-05-30",
+    "id": 765,
+    "updated_at": "2026-05-31 17:15:25",
+    "value": 50
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-05-30",
+    "id": 768,
+    "updated_at": "2026-05-31 17:15:49",
+    "value": 20
+  },
+  {
+    "activity": "Water",
+    "date": "2026-05-30",
+    "id": 770,
+    "updated_at": "2026-05-31 17:16:28",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-05-30",
+    "id": 766,
+    "updated_at": "2026-05-31 17:15:32",
+    "value": -3
   }
 ]
