@@ -4905,5 +4905,61 @@
     "id": 794,
     "updated_at": "2026-06-03 02:37:54",
     "value": -2
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-03",
+    "id": 803,
+    "updated_at": "2026-06-04 02:46:09",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-03",
+    "id": 805,
+    "updated_at": "2026-06-04 03:29:03",
+    "value": 6
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-06-03",
+    "id": 807,
+    "updated_at": "2026-06-04 02:46:37",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-03",
+    "id": 801,
+    "updated_at": "2026-06-04 02:46:00",
+    "value": 9
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-03",
+    "id": 800,
+    "updated_at": "2026-06-04 02:45:53",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-03",
+    "id": 799,
+    "updated_at": "2026-06-04 02:45:47",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-03",
+    "id": 804,
+    "updated_at": "2026-06-04 02:46:13",
+    "value": 2
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-03",
+    "id": 802,
+    "updated_at": "2026-06-04 02:46:05",
+    "value": -3
   }
 ]
