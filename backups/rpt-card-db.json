@@ -5262,5 +5262,110 @@
     "id": 854,
     "updated_at": "2026-06-10 02:14:57",
     "value": 1
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-06-10",
+    "id": 865,
+    "updated_at": "2026-06-12 02:52:36",
+    "value": 2
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-10",
+    "id": 859,
+    "updated_at": "2026-06-12 02:51:42",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-10",
+    "id": 861,
+    "updated_at": "2026-06-12 02:51:57",
+    "value": 8
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-10",
+    "id": 858,
+    "updated_at": "2026-06-12 02:51:36",
+    "value": 9
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-06-10",
+    "id": 862,
+    "updated_at": "2026-06-12 02:52:07",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-10",
+    "id": 857,
+    "updated_at": "2026-06-12 02:51:28",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-10",
+    "id": 856,
+    "updated_at": "2026-06-12 02:51:20",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-10",
+    "id": 860,
+    "updated_at": "2026-06-12 02:51:47",
+    "value": 1
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-06-11",
+    "id": 872,
+    "updated_at": "2026-06-12 03:08:35",
+    "value": 1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-11",
+    "id": 869,
+    "updated_at": "2026-06-12 03:07:53",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-11",
+    "id": 870,
+    "updated_at": "2026-06-12 03:08:14",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-11",
+    "id": 868,
+    "updated_at": "2026-06-12 03:07:49",
+    "value": 9
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-06-11",
+    "id": 871,
+    "updated_at": "2026-06-12 03:08:20",
+    "value": 1
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-06-11",
+    "id": 866,
+    "updated_at": "2026-06-12 02:52:45",
+    "value": 50
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-11",
+    "id": 867,
+    "updated_at": "2026-06-12 03:07:44",
+    "value": 20
   }
 ]
