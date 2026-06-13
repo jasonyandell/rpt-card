@@ -5367,5 +5367,61 @@
     "id": 867,
     "updated_at": "2026-06-12 03:07:44",
     "value": 20
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-12",
+    "id": 876,
+    "updated_at": "2026-06-13 08:13:48",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-06-12",
+    "id": 880,
+    "updated_at": "2026-06-13 08:14:46",
+    "value": 3
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-12",
+    "id": 879,
+    "updated_at": "2026-06-13 08:14:35",
+    "value": 6
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-06-12",
+    "id": 881,
+    "updated_at": "2026-06-13 08:14:55",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-12",
+    "id": 875,
+    "updated_at": "2026-06-13 08:13:35",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-12",
+    "id": 874,
+    "updated_at": "2026-06-13 08:13:24",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-12",
+    "id": 873,
+    "updated_at": "2026-06-13 08:13:18",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-12",
+    "id": 877,
+    "updated_at": "2026-06-13 08:14:22",
+    "value": 1
   }
 ]
