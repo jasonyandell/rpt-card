@@ -5423,5 +5423,96 @@
     "id": 877,
     "updated_at": "2026-06-13 08:14:22",
     "value": 1
+  },
+  {
+    "activity": "Chores",
+    "date": "2026-06-13",
+    "id": 889,
+    "updated_at": "2026-06-15 02:11:10",
+    "value": 1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-13",
+    "id": 886,
+    "updated_at": "2026-06-15 02:10:43",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-06-13",
+    "id": 888,
+    "updated_at": "2026-06-15 02:10:57",
+    "value": 3
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-13",
+    "id": 885,
+    "updated_at": "2026-06-15 02:10:35",
+    "value": 9
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-06-13",
+    "id": 882,
+    "updated_at": "2026-06-15 02:10:14",
+    "value": 50
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-13",
+    "id": 884,
+    "updated_at": "2026-06-15 02:10:24",
+    "value": 20
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-13",
+    "id": 887,
+    "updated_at": "2026-06-15 02:10:47",
+    "value": 3
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-14",
+    "id": 891,
+    "updated_at": "2026-06-15 02:11:49",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-06-14",
+    "id": 893,
+    "updated_at": "2026-06-15 02:12:37",
+    "value": 3
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-14",
+    "id": 890,
+    "updated_at": "2026-06-15 02:11:44",
+    "value": 12
+  },
+  {
+    "activity": "Triking",
+    "date": "2026-06-14",
+    "id": 883,
+    "updated_at": "2026-06-15 02:10:18",
+    "value": 50
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-14",
+    "id": 894,
+    "updated_at": "2026-06-15 02:12:51",
+    "value": 20
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-14",
+    "id": 892,
+    "updated_at": "2026-06-15 02:11:56",
+    "value": 3
   }
 ]
