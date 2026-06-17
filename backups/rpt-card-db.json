@@ -5514,5 +5514,61 @@
     "id": 892,
     "updated_at": "2026-06-15 02:11:56",
     "value": 3
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-16",
+    "id": 900,
+    "updated_at": "2026-06-17 02:58:50",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-06-16",
+    "id": 902,
+    "updated_at": "2026-06-17 02:59:11",
+    "value": 1
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-06-16",
+    "id": 903,
+    "updated_at": "2026-06-17 02:59:18",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-16",
+    "id": 897,
+    "updated_at": "2026-06-17 02:58:08",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-16",
+    "id": 896,
+    "updated_at": "2026-06-17 02:58:02",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-16",
+    "id": 895,
+    "updated_at": "2026-06-17 02:57:52",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-16",
+    "id": 901,
+    "updated_at": "2026-06-17 02:58:56",
+    "value": 2
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-16",
+    "id": 899,
+    "updated_at": "2026-06-17 02:58:42",
+    "value": -1
   }
 ]
