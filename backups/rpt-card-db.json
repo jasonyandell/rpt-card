@@ -5808,5 +5808,96 @@
     "id": 934,
     "updated_at": "2026-06-21 03:46:33",
     "value": -2
+  },
+  {
+    "activity": "Mail",
+    "date": "2026-06-23",
+    "id": 943,
+    "updated_at": "2026-06-24 17:49:25",
+    "value": 1
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-23",
+    "id": 940,
+    "updated_at": "2026-06-24 17:48:39",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-23",
+    "id": 939,
+    "updated_at": "2026-06-24 17:48:35",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-23",
+    "id": 938,
+    "updated_at": "2026-06-24 17:48:31",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-23",
+    "id": 942,
+    "updated_at": "2026-06-24 17:48:59",
+    "value": 2
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-23",
+    "id": 941,
+    "updated_at": "2026-06-24 17:48:44",
+    "value": -2
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-24",
+    "id": 951,
+    "updated_at": "2026-06-24 17:54:46",
+    "value": 5
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-24",
+    "id": 948,
+    "updated_at": "2026-06-24 17:54:04",
+    "value": 6
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-06-24",
+    "id": 953,
+    "updated_at": "2026-06-24 17:55:02",
+    "value": 3
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-24",
+    "id": 947,
+    "updated_at": "2026-06-24 17:53:59",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-24",
+    "id": 944,
+    "updated_at": "2026-06-24 17:49:40",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-24",
+    "id": 952,
+    "updated_at": "2026-06-24 17:54:55",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-24",
+    "id": 949,
+    "updated_at": "2026-06-24 17:54:10",
+    "value": -2
   }
 ]
