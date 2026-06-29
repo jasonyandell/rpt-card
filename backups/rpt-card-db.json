@@ -6025,5 +6025,117 @@
     "id": 968,
     "updated_at": "2026-06-26 21:47:08",
     "value": -1
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-27",
+    "id": 976,
+    "updated_at": "2026-06-29 03:31:20",
+    "value": 5
+  },
+  {
+    "activity": "Dishes",
+    "date": "2026-06-27",
+    "id": 979,
+    "updated_at": "2026-06-29 03:31:58",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-27",
+    "id": 978,
+    "updated_at": "2026-06-29 03:31:51",
+    "value": 2
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-27",
+    "id": 974,
+    "updated_at": "2026-06-29 03:31:12",
+    "value": 6
+  },
+  {
+    "activity": "Trash",
+    "date": "2026-06-27",
+    "id": 980,
+    "updated_at": "2026-06-29 03:32:03",
+    "value": 3
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-27",
+    "id": 973,
+    "updated_at": "2026-06-29 03:31:08",
+    "value": 5
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-27",
+    "id": 972,
+    "updated_at": "2026-06-29 03:30:57",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-27",
+    "id": 977,
+    "updated_at": "2026-06-29 03:31:25",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-27",
+    "id": 975,
+    "updated_at": "2026-06-29 03:31:17",
+    "value": -3
+  },
+  {
+    "activity": "DBS",
+    "date": "2026-06-28",
+    "id": 984,
+    "updated_at": "2026-06-29 03:44:28",
+    "value": 5
+  },
+  {
+    "activity": "Erin",
+    "date": "2026-06-28",
+    "id": 986,
+    "updated_at": "2026-06-29 03:44:54",
+    "value": 9
+  },
+  {
+    "activity": "RYTARY",
+    "date": "2026-06-28",
+    "id": 983,
+    "updated_at": "2026-06-29 03:44:20",
+    "value": 6
+  },
+  {
+    "activity": "Voice",
+    "date": "2026-06-28",
+    "id": 982,
+    "updated_at": "2026-06-29 03:44:14",
+    "value": 20
+  },
+  {
+    "activity": "Walking",
+    "date": "2026-06-28",
+    "id": 981,
+    "updated_at": "2026-06-29 03:44:08",
+    "value": 50
+  },
+  {
+    "activity": "Water",
+    "date": "2026-06-28",
+    "id": 985,
+    "updated_at": "2026-06-29 03:44:38",
+    "value": 1
+  },
+  {
+    "activity": "Weight",
+    "date": "2026-06-28",
+    "id": 987,
+    "updated_at": "2026-06-29 03:45:10",
+    "value": -2
   }
 ]
